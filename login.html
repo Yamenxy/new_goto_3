@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Mr. Ahmed Mohie Physics</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Loader -->
+  <div id="loader">
+    <div class="loader-content">
+      <div class="atom-loader"><div class="electron"></div><div class="electron"></div><div class="electron"></div><div class="nucleus"></div></div>
+      <p data-en="Loading..." data-ar="جاري التحميل...">Loading...</p>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo"><i class="fas fa-atom"></i><span data-en="Mr. Ahmed Mohie" data-ar="أ. أحمد محي">Mr. Ahmed Mohie</span></a>
+      <div style="margin-left:12px; font-weight:700; direction:rtl; color:var(--primary);">الصف الاول الثانوي</div>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link" data-en="Home" data-ar="الرئيسية">Home</a>
+        <a href="index.html#about" class="nav-link" data-en="About" data-ar="من نحن">About</a>
+        <a href="index.html#team" class="nav-link" data-en="Team" data-ar="الفريق">Team</a>
+        <span class="nav-auth" id="navAuth"></span>
+        <!-- <a href="homework.html" class="nav-link nav-btn" data-en="Homework" data-ar="الواجب"><i class="fas fa-book-open"></i> <span data-en="Homework" data-ar="الواجب">Homework</span></a> -->
+        <!-- <a href="sections.html" class="nav-link nav-btn btn-secondary" data-en="Sections" data-ar="الحصص"><i class="fas fa-play-circle"></i> <span data-en="Sections" data-ar="الحصص">Sections</span></a> -->
+      </div>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" onclick="toggleLanguage()"><i class="fas fa-globe"></i><span id="langText">عربي</span></button>
+        <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div>
+      <h1 data-en="Student Login" data-ar="تسجيل الدخول">Student Login</h1>
+      <p data-en="Login to access your profile, homework, and sections" data-ar="سجل دخولك للوصول لملفك الشخصي والواجبات والحصص">Login to access your profile, homework, and sections</p>
+    </div>
+  </div>
+
+  <!-- Login Form -->
+  <section class="form-section">
+    <div class="container">
+      <div class="form-card" style="max-width: 500px;">
+        <div id="formAlert" style="display:none;"></div>
+
+        <form id="loginForm" autocomplete="off">
+          <!-- Student Code -->
+          <div class="form-group">
+            <label><i class="fas fa-id-badge"></i> <span data-en="Student Code" data-ar="كود الطالب">Student Code</span></label>
+            <input type="text" class="form-control" id="loginCode" name="loginCode" placeholder="Enter your student code / أدخل كود الطالب" required>
+            <div class="form-error" id="codeError" data-en="Student code is required" data-ar="كود الطالب مطلوب">Student code is required</div>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label><i class="fas fa-lock"></i> <span data-en="Password" data-ar="كلمة المرور">Password</span></label>
+            <div style="position: relative;">
+              <input type="password" class="form-control" id="loginPassword" name="loginPassword" placeholder="Enter your password / أدخل كلمة المرور" required style="padding-right: 50px;">
+              <button type="button" class="password-eye" onclick="togglePasswordVisibility('loginPassword', this)">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+            <div class="form-error" id="passwordError" data-en="Password is required" data-ar="كلمة المرور مطلوبة">Password is required</div>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 10px;" id="loginBtn">
+            <i class="fas fa-sign-in-alt"></i>
+            <span data-en="Login" data-ar="دخول">Login</span>
+          </button>
+        </form>
+
+        <div class="form-footer">
+          <p data-en="Don't have an account?" data-ar="ليس لديك حساب؟">Don't have an account?</p>
+          <a href="register.html" class="btn btn-outline" style="width: 100%;">
+            <i class="fas fa-user-plus"></i>
+            <span data-en="Register Now" data-ar="سجل الآن">Register Now</span>
+          </a>
+          <p style="margin-top:8px; text-align:center;">
+            <a href="#" id="forgotLink" data-en="Forgot password?" data-ar="هل نسيت كلمة المرور؟">Forgot password?</a>
+          </p>
+
+          <!-- Forgot password modal (placed inside form card for reliable DOM availability) -->
+          <div id="forgotModal" class="modal" style="display:none;">
+            <div class="modal-content">
+              <h3 data-en="Forgot Password" data-ar="نسيت كلمة المرور">Forgot Password</h3>
+              <p data-en="Enter your student code and phones to verify your identity." data-ar="أدخل كود الطالب وأرقام الهواتف للتحقق">Enter your student code and phones to verify your identity.</p>
+              <input type="text" id="forgotCode" class="form-control" placeholder="Student code / كود الطالب" style="margin-top:8px;">
+              <input type="text" id="forgotPhone" class="form-control" placeholder="Your phone (e.g. 010...)" style="margin-top:8px;">
+              <input type="text" id="forgotParentPhone" class="form-control" placeholder="Parent phone (e.g. 010...)" style="margin-top:8px;">
+              <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:10px;">
+                <button id="forgotCancel" class="btn btn-outline">Cancel</button>
+                <button id="forgotSubmit" class="btn btn-primary">Find Password</button>
+              </div>
+              <div id="forgotResult" style="margin-top:12px; color:var(--text-muted);"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3><i class="fas fa-atom"></i> <span data-en="Mr. Ahmed Mohie" data-ar="أ. أحمد محي">Mr. Ahmed Mohie</span></h3>
+          <p data-en="Physics Teacher - Making Physics Simple & Fun" data-ar="مدرس فيزياء - نجعل الفيزياء بسيطة وممتعة">Physics Teacher - Making Physics Simple & Fun</p>
+        </div>
+        <div class="footer-links">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+          <a href="register.html" data-en="Register" data-ar="التسجيل">Register</a>
+          <!-- <a href="homework.html" data-en="Homework" data-ar="الواجب">Homework</a> -->
+          <!-- <a href="sections.html" data-en="Sections" data-ar="الحصص">Sections</a> -->
+        </div>
+        <div class="footer-social">
+          <a href="https://api.whatsapp.com/send/?phone=%2B201288449598" class="social-link whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://www.facebook.com/share/aLnUsKV1Sk315EAJ/?mibextid=qi2Omg" class="social-link facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/ahmedmohie97" class="social-link instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Mr. Ahmed Mohie. <span data-en="All rights reserved." data-ar="جميع الحقوق محفوظة.">All rights reserved.</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/login.js"></script>
+
+  
+</body>
+</html>

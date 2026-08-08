@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mr. Ahmed Mohie - Physics Teacher</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script>if(!localStorage.getItem('loggedInUser'))window.location.replace('register.html');</script>
+</head>
+<body>
+  <!-- Loader -->
+  <div id="loader">
+    <div class="loader-content">
+      <div class="atom-loader">
+        <div class="electron"></div>
+        <div class="electron"></div>
+        <div class="electron"></div>
+        <div class="nucleus"></div>
+      </div>
+      <p data-en="Loading..." data-ar="جاري التحميل...">Loading...</p>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-atom"></i>
+        <span data-en="Mr. Ahmed Mohie" data-ar="أ. أحمد محي">Mr. Ahmed Mohie</span>
+      </a>
+      <div style="margin-left:12px; font-weight:700; direction:rtl; color:var(--primary);">الصف الثالث الثانوي</div>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link active" data-en="Home" data-ar="الرئيسية">Home</a>
+        <a href="#about" class="nav-link" data-en="About" data-ar="من نحن">About</a>
+        <a href="#team" class="nav-link" data-en="Team" data-ar="الفريق">Team</a>
+        <span class="nav-auth" id="navAuth"></span>
+        <!-- <a href="homework.html" class="nav-link nav-btn" data-en="Homework" data-ar="الواجب">
+          <i class="fas fa-book-open"></i> <span data-en="Homework" data-ar="الواجب">Homework</span>
+        </a> -->
+        <!-- <a href="sections.html" class="nav-link nav-btn btn-secondary" data-en="Sections" data-ar="الحصص">
+          <i class="fas fa-play-circle"></i> <span data-en="Sections" data-ar="الحصص">Sections</span>
+        </a> -->
+      </div>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" onclick="toggleLanguage()">
+          <i class="fas fa-globe"></i>
+          <span id="langText">عربي</span>
+        </button>
+        <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div id="particles"></div>
+    <div class="hero-content">
+      <h1 class="hero-title animate__animated animate__fadeInUp">
+        <span data-en="Master" data-ar="أتقن">Master</span>
+        <span class="gradient-text" data-en="Physics" data-ar="الفيزياء">Physics</span>
+        <span data-en="With Us" data-ar="معنا">With Us</span>
+      </h1>
+      <p class="hero-subtitle animate__animated animate__fadeInUp" data-en="Join Mr. Ahmed Mohie's physics classes and unlock the secrets of the universe. From mechanics to modern physics, we make learning an adventure." data-ar="انضم لفصول الفيزياء مع الأستاذ أحمد محي واكتشف أسرار الكون. من الميكانيكا إلى الفيزياء الحديثة، نجعل التعلم مغامرة.">
+        Join Mr. Ahmed Mohie's physics classes and unlock the secrets of the universe.
+      </p>
+      <div class="hero-buttons animate__animated animate__fadeInUp">
+        <a href="register.html" class="btn btn-primary btn-lg">
+          <i class="fas fa-user-plus"></i>
+          <span data-en="Register Now" data-ar="سجل الآن">Register Now</span>
+        </a>
+        <a href="#about" class="btn btn-outline btn-lg">
+          <i class="fas fa-info-circle"></i>
+          <span data-en="Learn More" data-ar="اعرف المزيد">Learn More</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title" data-en="Why Choose Us?" data-ar="لماذا تختارنا؟">Why Choose Us?</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="about-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+          <h3 data-en="Expert Teaching" data-ar="تدريس متميز">Expert Teaching</h3>
+          <p data-en="Years of experience in teaching physics with proven results and innovative methods." data-ar="سنوات من الخبرة في تدريس الفيزياء بنتائج مثبتة وأساليب مبتكرة.">Years of experience in teaching physics with proven results.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-icon" style="background: linear-gradient(135deg, var(--secondary), #00b3ae);"><i class="fas fa-video"></i></div>
+          <h3 data-en="Video Lessons" data-ar="دروس فيديو">Video Lessons</h3>
+          <p data-en="Access recorded sections and homework videos anytime, anywhere." data-ar="شاهد الحصص المسجلة وفيديوهات الواجب في أي وقت ومن أي مكان.">Access recorded sections and homework videos anytime.</p>
+          <small style="display:block; margin-top:8px; color:var(--text-muted);">(Sections & Homework temporarily disabled)</small>
+        </div>
+        <div class="about-card">
+          <div class="about-icon" style="background: linear-gradient(135deg, var(--accent), #e84393);"><i class="fas fa-users"></i></div>
+          <h3 data-en="Community" data-ar="مجتمع طلابي">Community</h3>
+          <p data-en="Join a community of motivated students and a dedicated teaching team." data-ar="انضم لمجتمع من الطلاب المتحمسين وفريق تدريس متفاني.">Join a community of motivated students.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-icon" style="background: linear-gradient(135deg, #fdcb6e, #f39c12);"><i class="fas fa-star"></i></div>
+          <h3 data-en="Proven Results" data-ar="نتائج مثبتة">Proven Results</h3>
+          <p data-en="Our students consistently achieve top grades in physics exams." data-ar="طلابنا يحققون أعلى الدرجات في امتحانات الفيزياء باستمرار.">Our students consistently achieve top grades.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number" data-count="2000">0</div>
+          <div class="stat-label" data-en="Students" data-ar="طالب">Students</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-count="8">0</div>
+          <div class="stat-label" data-en="Years Experience" data-ar="سنوات خبرة">Years Experience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-count="17">0</div>
+          <div class="stat-label" data-en="Centers" data-ar="سنتر">Centers</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-count="98">0</div>
+          <div class="stat-label" data-en="% Success Rate" data-ar="% نسبة النجاح">% Success Rate</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="team-section" id="team">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title" data-en="Our Team" data-ar="فريقنا">Our Team</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="team-grid">
+        <!-- Teacher (keep first) -->
+        <div class="team-card">
+          <div class="team-avatar"><img src="images/9f48976d-fa74-4e23-980e-0e0af0824cc3.jpg" alt="Ahmed Mohie"></div>
+            <h4 data-en="Ahmed Mohie" data-ar="أحمد محي">أحمد محي</h4>
+          <p class="team-role" data-en="Physics Teacher" data-ar="مدرس الفيزياء">Physics Teacher</p>
+          <div class="team-social">
+            <a href="https://api.whatsapp.com/send/?phone=%2B201288449598&text&type=phone_number&app_absent=0" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/share/aLnUsKV1Sk315EAJ/?mibextid=qi2Omg" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-avatar"><img src="images/WhatsApp Image 2025-10-22 at 16.18.55_5d44b198.jpg" alt="Yamen Yasser"></div>
+            <h4 data-en="Yamen Yasser" data-ar="يامن ياسر">يامن ياسر</h4>
+          <p class="team-role" data-en="Software Engineer" data-ar="مهندس برمجيات">Software Engineer</p>
+          <div class="team-social">
+            <a href="https://api.whatsapp.com/send/?phone=%2B201004395090&text&type=phone_number&app_absent=0" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/share/23qoF3xEzpspFP2A/?mibextid=qi2Omg" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          </div>
+        </div>
+
+        <!-- Girls grouped together -->
+        <div class="team-card">
+          <div class="team-avatar"><img src="images/aa245035c2ec6f5b543420b28b2a5b41.jpg" alt="Hassnaa Hussein"></div>
+            <h4 data-en="Hassnaa Hussein" data-ar="حسناء حسين">حسناء حسين</h4>
+          <p class="team-role" data-en="Cyber Security Engineer" data-ar="مهندس أمن سيبراني">Cyber Security Engineer</p>
+          <div class="team-social">
+            <a href="https://api.whatsapp.com/send/?phone=%2B201017284396&text&type=phone_number&app_absent=0" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=100094000271752&mibextid=ZbWKwL" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-avatar"><img src="images/aa245035c2ec6f5b543420b28b2a5b41.jpg" alt="Shimaa Abdelhamid"></div>
+            <h4 data-en="Shimaa Abdelhamid" data-ar="شيماء عبد الحميد">شيماء عبد الحميد</h4>
+          <p class="team-role" data-en="Doctor" data-ar="دكتور">Doctor</p>
+          <div class="team-social">
+            <a href="https://api.whatsapp.com/send/?phone=%2B201122036588&text&type=phone_number&app_absent=0" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/shiama.basiony?mibextid=ZbWKwL" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-avatar"><img src="images/aa245035c2ec6f5b543420b28b2a5b41.jpg" alt="Salam Arafa"></div>
+            <h4 data-en="Salam Arafa" data-ar="سلمي عرفة">سلمي عرفة</h4>
+          <p class="team-role" data-en="Lawyer" data-ar="محامية">Lawyer</p>
+          <div class="team-social">
+            <a href="https://api.whatsapp.com/send/?phone=%2B201016487891&text&type=phone_number&app_absent=0" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/salma.sasoo.395" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          </div>
+        </div>
+
+        <!-- Boys grouped together -->
+        
+
+        <div class="team-card">
+          <div class="team-avatar"><img src="images/87b02c47-9a0d-4098-9e2a-b848161fbde3.jpg" alt="Ahmed Elyamany"></div>
+            <h4 data-en="Ahmed Elyamany" data-ar="احمد اليماني">احمد اليماني</h4>
+          <p class="team-role" data-en="Structural Engineer" data-ar="مهندس معماري">Structural Engineer</p>
+          <div class="team-social">
+            <a href="https://api.whatsapp.com/send/?phone=%2B2001111492628&text&type=phone_number&app_absent=0" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/ahmedelyamany20?mibextid=ZbWKwL" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-avatar"><img src="images/23417b91-c95a-422f-b5f7-1633bb4a86ce.jpg" alt="Abdelazim Adel"></div>
+            <h4 data-en="Abdelazim Adel" data-ar="عبد العظيم عادل">عبد العظيم عادل</h4>
+          <p class="team-role" data-en="Doctor" data-ar="دكتور">Doctor</p>
+          <div class="team-social">
+            <a href="https://api.whatsapp.com/send/?phone=%2B201126819337&text&type=phone_number&app_absent=0" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=100073310287940&mibextid=ZbWKwL" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-avatar"><img src="images/file_2.jpg" alt="Kareem Mohammed"></div>
+            <h4 data-en="Kareem Mohammed" data-ar="كريم محمد">كريم محمد</h4>
+          <p class="team-role" data-en="Doctor" data-ar="دكتور">Doctor</p>
+          <div class="team-social">
+            <a href="https://api.whatsapp.com/send/?phone=%2B201091911188&text&type=phone_number&app_absent=0" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/share/5G3beXvfvhUhoH2j/?mibextid=qi2Omg" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-avatar"><img src="images/WhatsApp Image 2025-09-18 at 20.27.55_1b89094c.jpg" alt="Eyad Tamer"></div>
+            <h4 data-en="Eyad Tamer" data-ar="اياد تامر">اياد تامر</h4>
+          <p class="team-role" data-en="AI Engineer" data-ar="مهندس الذكاء الاصطناعي">AI Engineer</p>
+          <div class="team-social">
+            <a href="https://api.whatsapp.com/send/?phone=%2B201225926040&text&type=phone_number&app_absent=0" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/share/1AvFoRa2kj/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-avatar"><img src="images/WhatsApp Image 2025-09-19 at 00.05.55_075b06d0.jpg" alt="mustafa muhammad"></div>
+            <h4 data-en="Mustafa Muhammad" data-ar="مصطفي محمد">مصطفي محمد</h4>
+          <p class="team-role" data-en="Doctor Pharmacist" data-ar="دكتور صيدلي">Doctor Pharmacist</p>
+          <div class="team-social">
+            <a href="https://api.whatsapp.com/send/?phone=%2B201070471066&text&type=phone_number&app_absent=0" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/share/15U4JF4ayW/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3><i class="fas fa-atom"></i> <span data-en="Mr. Ahmed Mohie" data-ar="أ. أحمد محي">Mr. Ahmed Mohie</span></h3>
+          <p data-en="Physics Teacher - Making Physics Simple & Fun" data-ar="مدرس فيزياء - نجعل الفيزياء بسيطة وممتعة">Physics Teacher - Making Physics Simple & Fun</p>
+        </div>
+        <div class="footer-links">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+          <a href="register.html" data-en="Register" data-ar="التسجيل">Register</a>
+          <!-- <a href="homework.html" data-en="Homework" data-ar="الواجب">Homework</a>
+          <a href="sections.html" data-en="Sections" data-ar="الحصص">Sections</a> -->
+        </div>
+        <div class="footer-social">
+          <a href="https://api.whatsapp.com/send/?phone=%2B201288449598" class="social-link whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://www.facebook.com/share/aLnUsKV1Sk315EAJ/?mibextid=qi2Omg" class="social-link facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/ahmedmohie97" class="social-link instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Mr. Ahmed Mohie. <span data-en="All rights reserved." data-ar="جميع الحقوق محفوظة.">All rights reserved.</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

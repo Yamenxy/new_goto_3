@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - Mr. Ahmed Mohie Physics</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script>if(!localStorage.getItem('loggedInUser'))window.location.replace('register.html');</script>
+</head>
+<body>
+  <!-- Loader -->
+  <div id="loader">
+    <div class="loader-content">
+      <div class="atom-loader"><div class="electron"></div><div class="electron"></div><div class="electron"></div><div class="nucleus"></div></div>
+      <p data-en="Loading..." data-ar="جاري التحميل...">Loading...</p>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo"><i class="fas fa-atom"></i><span data-en="Mr. Ahmed Mohie" data-ar="أ. أحمد محي">Mr. Ahmed Mohie</span></a>
+      <div style="margin-left:12px; font-weight:700; direction:rtl; color:var(--primary);">الصف الاول الثانوي</div>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link" data-en="Home" data-ar="الرئيسية">Home</a>
+        <a href="index.html#about" class="nav-link" data-en="About" data-ar="من نحن">About</a>
+        <a href="index.html#team" class="nav-link" data-en="Team" data-ar="الفريق">Team</a>
+        <span class="nav-auth" id="navAuth"></span>
+        <!-- <a href="homework.html" class="nav-link nav-btn" data-en="Homework" data-ar="الواجب"><i class="fas fa-book-open"></i> <span data-en="Homework" data-ar="الواجب">Homework</span></a> -->
+        <!-- <a href="sections.html" class="nav-link nav-btn btn-secondary" data-en="Sections" data-ar="الحصص"><i class="fas fa-play-circle"></i> <span data-en="Sections" data-ar="الحصص">Sections</span></a> -->
+      </div>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" onclick="toggleLanguage()"><i class="fas fa-globe"></i><span id="langText">عربي</span></button>
+        <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div>
+      <h1 data-en="My Profile" data-ar="ملفي الشخصي">My Profile</h1>
+      <p data-en="View your account information" data-ar="عرض معلومات حسابك">View your account information</p>
+    </div>
+  </div>
+
+  <!-- Profile Section -->
+  <section class="form-section">
+    <div class="container">
+      <div class="profile-card" id="profileCard">
+        <div class="profile-avatar">
+          <div class="avatar-circle"><i class="fas fa-user-graduate"></i></div>
+          <h2 id="profileName">-</h2>
+          <span class="profile-code" id="profileCode">-</span>
+        </div>
+
+        <div class="profile-info-grid">
+          <div class="profile-info-item">
+            <div class="info-icon"><i class="fas fa-id-badge"></i></div>
+            <div class="info-content">
+              <span class="info-label" data-en="Student Code" data-ar="كود الطالب">Student Code</span>
+              <span class="info-value" id="infoCode">-</span>
+            </div>
+          </div>
+          <div class="profile-info-item">
+            <div class="info-icon"><i class="fas fa-user"></i></div>
+            <div class="info-content">
+              <span class="info-label" data-en="Full Name" data-ar="الاسم بالكامل">Full Name</span>
+              <span class="info-value" id="infoName">-</span>
+            </div>
+          </div>
+          <div class="profile-info-item">
+            <div class="info-icon"><i class="fas fa-phone"></i></div>
+            <div class="info-content">
+              <span class="info-label" data-en="Phone Number" data-ar="رقم الهاتف">Phone Number</span>
+              <span class="info-value" id="infoPhone">-</span>
+            </div>
+          </div>
+          <div class="profile-info-item">
+            <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+            <div class="info-content">
+              <span class="info-label" data-en="Parent's Phone" data-ar="رقم ولي الأمر">Parent's Phone</span>
+              <span class="info-value" id="infoParentPhone">-</span>
+            </div>
+          </div>
+          <div class="profile-info-item">
+            <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="info-content">
+              <span class="info-label" data-en="Center" data-ar="السنتر">Center</span>
+              <span class="info-value" id="infoCenter">-</span>
+            </div>
+          </div>
+          <div class="profile-info-item">
+            <div class="info-icon"><i class="fas fa-calendar-alt"></i></div>
+            <div class="info-content">
+              <span class="info-label" data-en="Registered On" data-ar="تاريخ التسجيل">Registered On</span>
+              <span class="info-value" id="infoDate">-</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-actions">
+          <!-- <a href="homework.html" class="btn btn-primary">
+            <i class="fas fa-book-open"></i>
+            <span data-en="Go to Homework" data-ar="الذهاب للواجب">Go to Homework</span>
+          </a>
+          <a href="sections.html" class="btn btn-secondary-style">
+            <i class="fas fa-play-circle"></i>
+            <span data-en="Go to Sections" data-ar="الذهاب للحصص">Go to Sections</span>
+          </a> -->
+          <button class="btn btn-danger" onclick="logoutUser()">
+            <i class="fas fa-sign-out-alt"></i>
+            <span data-en="Logout" data-ar="تسجيل الخروج">Logout</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Student Dashboard (Attendance & Quiz Grades) -->
+      <div id="dashboardLoading" class="student-dashboard" style="text-align:center; padding:40px 0;">
+        <i class="fas fa-spinner fa-spin" style="font-size:2rem; color:var(--primary); margin-bottom:15px;"></i>
+        <h3 style="color:var(--white); margin-bottom:6px;" data-en="Loading your data..." data-ar="جاري تحميل بياناتك...">Loading your data...</h3>
+        <p style="color:var(--text-muted); font-size:0.9rem;" data-en="Fetching attendance and quiz grades..." data-ar="جاري جلب سجل الحضور ودرجات الامتحانات...">Fetching attendance and quiz grades...</p>
+      </div>
+
+      <div id="studentDashboard" class="student-dashboard" style="display:none;">
+        <!-- Stats Cards -->
+        <div class="dashboard-stats">
+          <div class="stat-card">
+            <div class="stat-icon attendance-icon"><i class="fas fa-calendar-check"></i></div>
+            <div class="stat-value" id="statAttendance">-</div>
+            <div class="stat-label" data-en="Lectures Attended" data-ar="محاضرات حضرتها">Lectures Attended</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon quiz-icon"><i class="fas fa-file-alt"></i></div>
+            <div class="stat-value" id="statQuizzes">-</div>
+            <div class="stat-label" data-en="Quizzes Taken" data-ar="امتحانات">Quizzes Taken</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon avg-icon"><i class="fas fa-chart-line"></i></div>
+            <div class="stat-value" id="statAverage">-</div>
+            <div class="stat-label" data-en="Average Score" data-ar="متوسط الدرجات">Average Score</div>
+          </div>
+        </div>
+
+        <!-- Attendance & Quizzes Panels -->
+        <div class="dashboard-grid">
+          <!-- Attendance Panel -->
+          <div class="dashboard-panel">
+            <div class="dashboard-panel-header">
+              <i class="fas fa-clipboard-check"></i>
+              <h3 data-en="Attendance Record" data-ar="سجل الحضور">Attendance Record</h3>
+            </div>
+            <div class="dashboard-panel-body">
+              <div class="attendance-grid" id="attendanceGrid">
+                <p style="color:var(--text-muted);"><i class="fas fa-spinner fa-spin"></i> Loading...</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quiz Grades Panel -->
+          <div class="dashboard-panel">
+            <div class="dashboard-panel-header">
+              <i class="fas fa-award"></i>
+              <h3 data-en="Quiz Grades" data-ar="درجات الامتحانات">Quiz Grades</h3>
+            </div>
+            <div class="dashboard-panel-body">
+              <table class="quiz-table" id="quizTable">
+                <thead>
+                  <tr>
+                    <th data-en="Quiz" data-ar="الامتحان">Quiz</th>
+                    <th data-en="Score" data-ar="الدرجة">Score</th>
+                  </tr>
+                </thead>
+                <tbody id="quizTableBody">
+                  <tr><td colspan="2" style="color:var(--text-muted); text-align:center;"><i class="fas fa-spinner fa-spin"></i> Loading...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3><i class="fas fa-atom"></i> <span data-en="Mr. Ahmed Mohie" data-ar="أ. أحمد محي">Mr. Ahmed Mohie</span></h3>
+          <p data-en="Physics Teacher - Making Physics Simple & Fun" data-ar="مدرس فيزياء - نجعل الفيزياء بسيطة وممتعة">Physics Teacher - Making Physics Simple & Fun</p>
+        </div>
+        <div class="footer-links">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+          <!-- <a href="homework.html" data-en="Homework" data-ar="الواجب">Homework</a> -->
+          <!-- <a href="sections.html" data-en="Sections" data-ar="الحصص">Sections</a> -->
+        </div>
+        <div class="footer-social">
+          <a href="https://api.whatsapp.com/send/?phone=%2B201288449598" class="social-link whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://www.facebook.com/share/aLnUsKV1Sk315EAJ/?mibextid=qi2Omg" class="social-link facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/ahmedmohie97" class="social-link instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Mr. Ahmed Mohie. <span data-en="All rights reserved." data-ar="جميع الحقوق محفوظة.">All rights reserved.</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    const REGISTRATION_API = 'https://script.google.com/macros/s/AKfycbxxdkWVWlySUilRMCtNL8GMpT9iy6Vnsi0_AHhiRSPiTywlUe2kSqLSntidaI-fieCnOQ/exec';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = getLoggedInUser();
+      if (!user) { window.location.href = 'login.html'; return; }
+
+      document.getElementById('profileName').textContent = user.studentName || '-';
+      document.getElementById('profileCode').textContent = user.studentCode || '-';
+      document.getElementById('infoCode').textContent = user.studentCode || '-';
+      document.getElementById('infoName').textContent = user.studentName || '-';
+      document.getElementById('infoPhone').textContent = user.studentPhone || '-';
+      document.getElementById('infoParentPhone').textContent = user.parentPhone || '-';
+      document.getElementById('infoCenter').textContent = user.center || '-';
+      
+      if (user.timestamp) {
+        const date = new Date(user.timestamp);
+        document.getElementById('infoDate').textContent = date.toLocaleDateString('en-GB');
+      }
+
+      // Fetch attendance & quiz grades from registration sheet
+      if (user.studentCode) {
+        fetchStudentDashboard(user.studentCode);
+      }
+    });
+
+    async function fetchStudentDashboard(code) {
+      const dashboard = document.getElementById('studentDashboard');
+      if (!dashboard) return;
+
+      try {
+        const resp = await fetch(
+          `${REGISTRATION_API}?action=getStudentData&code=${encodeURIComponent(code)}`,
+          { credentials: 'omit', redirect: 'follow' }
+        );
+        const data = await resp.json();
+
+        if (data.status !== 'success') {
+          document.getElementById('dashboardLoading').style.display = 'none';
+          return;
+        }
+
+        const quizzes = data.quizzes || [];
+        const attendance = data.attendance || [];
+
+        // Only show attendance items that have actual data (student was marked present)
+        const attendedItems = attendance.filter(a => a.present);
+        // Only show quizzes that have a score
+        const gradedQuizzes = quizzes.filter(q => q.score !== '' && q.score !== null && q.score !== undefined);
+
+        // Show dashboard, hide loading
+        document.getElementById('dashboardLoading').style.display = 'none';
+        dashboard.style.display = 'block';
+
+        // Update stat cards
+        document.getElementById('statAttendance').textContent = attendedItems.length;
+        document.getElementById('statQuizzes').textContent = gradedQuizzes.length;
+
+        let avgScore = '-';
+        if (gradedQuizzes.length > 0) {
+          const total = gradedQuizzes.reduce((sum, q) => sum + parseFloat(q.score || 0), 0);
+          avgScore = (total / gradedQuizzes.length).toFixed(1);
+        }
+        document.getElementById('statAverage').textContent = avgScore;
+
+        // Render attendance grid (only attended lectures)
+        renderAttendanceGrid(attendedItems);
+
+        // Render quiz table (only graded quizzes)
+        renderQuizTable(gradedQuizzes);
+
+        if (typeof updateLanguage === 'function') updateLanguage();
+
+      } catch (err) {
+        console.error('Dashboard error:', err);
+        document.getElementById('dashboardLoading').style.display = 'none';
+      }
+    }
+
+    function renderAttendanceGrid(items) {
+      const grid = document.getElementById('attendanceGrid');
+      if (!grid) return;
+
+      if (!items.length) {
+        grid.innerHTML = '<p style="color:var(--text-muted);" data-en="No attendance recorded yet" data-ar="لا يوجد حضور مسجل بعد">No attendance recorded yet</p>';
+        return;
+      }
+
+      grid.innerHTML = '';
+      items.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'attendance-item present';
+        div.innerHTML = `
+          <div class="att-icon"><i class="fas fa-check"></i></div>
+          <span class="att-name">${item.name}</span>
+        `;
+        grid.appendChild(div);
+      });
+    }
+
+    function renderQuizTable(quizzes) {
+      const tbody = document.getElementById('quizTableBody');
+      if (!tbody) return;
+
+      if (!quizzes.length) {
+        tbody.innerHTML = '<tr><td colspan="2" style="color:var(--text-muted); text-align:center;" data-en="No quiz grades yet" data-ar="لا توجد درجات امتحانات بعد">No quiz grades yet</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = '';
+      quizzes.forEach(q => {
+        const tr = document.createElement('tr');
+        const numScore = parseFloat(q.score);
+        let badgeClass = 'badge-warning';
+        if (numScore >= 80) badgeClass = 'badge-success';
+        else if (numScore < 50) badgeClass = 'badge-error';
+
+        tr.innerHTML = `
+          <td class="quiz-name">${q.name}</td>
+          <td class="quiz-score"><span class="badge ${badgeClass}">${q.score}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+  </script>
+</body>
+</html>
