@@ -225,8 +225,8 @@ if (!studentCode) {
 // Validate student code range: 3000 - 3100
 if (
   !/^\d+$/.test(studentCode) ||
-  parseInt(studentCode, 10) < 3000 ||
-  parseInt(studentCode, 10) > 3100
+  parseInt(studentCode, 10) < 30000 ||
+  parseInt(studentCode, 10) > 32000
 ) {
   alertEl.innerHTML = `
     <div class="alert alert-error">
