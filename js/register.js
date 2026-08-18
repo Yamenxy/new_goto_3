@@ -117,23 +117,32 @@ function startScanner() {
   initQuagga(tryConfigs);
 
   // Single detection handler — unregister previous to avoid duplicates
-  const onDetectedHandler = (result) => {
-    try {
-      const code = result && result.codeResult && result.codeResult.code;
-      if (code) {
-        document.getElementById('studentCode').value = code;
-        stopScanner();
-        showToast('تم مسح الكود: ' + code, 'success');
-      }
-    } catch (e) { console.error('onDetected handler error', e); }
-  };
+const onDetectedHandler = (result) => {
+  try {
+    const code = result && result.codeResult && result.codeResult.code;
 
-  if (typeof Quagga.onDetected === 'function') {
-    Quagga.onDetected(onDetectedHandler);
-  } else if (typeof Quagga.addListener === 'function') {
-    Quagga.addListener('detected', onDetectedHandler);
+    if (code) {
+      const numericCode = parseInt(code, 10);
+
+      // Accept only codes from 3000 to 3100
+      if (
+        !/^\d+$/.test(code) ||
+        numericCode < 30000 ||
+        numericCode > 32000
+      ) {
+        showToast('كود غير صالح', 'error');
+        return;
+      }
+
+      document.getElementById('studentCode').value = code;
+      stopScanner();
+
+      showToast('تم مسح الكود: ' + code, 'success');
+    }
+  } catch (e) {
+    console.error('onDetected handler error:', e);
   }
-}
+};
 
 function stopScanner() {
   if (scannerRunning && typeof Quagga !== 'undefined') {
@@ -200,10 +209,36 @@ async function handleRegistration(e) {
   alertEl.innerHTML = '';
 
   // Validate code was scanned
-  if (!studentCode) {
-    alertEl.innerHTML = '<div class="alert alert-error"><i class="fas fa-exclamation-circle"></i> <span data-en="Please scan your barcode first" data-ar="يرجى مسح الباركود أولاً">Please scan your barcode first</span></div>';
-    return;
-  }
+ // Validate code was scanned
+if (!studentCode) {
+  alertEl.innerHTML = `
+    <div class="alert alert-error">
+      <i class="fas fa-exclamation-circle"></i>
+      <span data-en="Please scan your barcode first"
+            data-ar="يرجى مسح الباركود أولاً">
+        Please scan your barcode first
+      </span>
+    </div>`;
+  return;
+}
+
+// Validate student code range: 3000 - 3100
+if (
+  !/^\d+$/.test(studentCode) ||
+  parseInt(studentCode, 10) < 3000 ||
+  parseInt(studentCode, 10) > 3100
+) {
+  alertEl.innerHTML = `
+    <div class="alert alert-error">
+      <i class="fas fa-exclamation-circle"></i>
+      <span data-en="Invalid student code."
+            data-ar="كود الطالب غير صالح..">
+      </span>
+    </div>`;
+
+  document.getElementById('studentCode').value = '';
+  return;
+}
 
   // Validate name: Arabic, at least 4 parts
   const nameCheck = validateFullName(studentName);
