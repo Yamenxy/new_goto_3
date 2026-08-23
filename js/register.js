@@ -30,133 +30,216 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ==================== Barcode Scanner ==================== */
+
 function startScanner() {
-  const scannerEl = document.getElementById('scannerArea');
-  const startBtn = document.getElementById('startScanBtn');
-  const stopBtn = document.getElementById('stopScanBtn');
+    const scannerEl = document.getElementById('scannerArea');
+    const startBtn = document.getElementById('startScanBtn');
+    const stopBtn = document.getElementById('stopScanBtn');
 
-  if (!scannerEl) return;
-  scannerEl.style.display = 'block';
-  startBtn.style.display = 'none';
-  stopBtn.style.display = 'inline-flex';
-
-  if (typeof Quagga === 'undefined') {
-    showToast('Scanner library not loaded', 'error');
-    return;
-  }
-  // If a previous instance is running, stop it first to avoid duplicate handlers
-  try { if (scannerRunning && typeof Quagga !== 'undefined') Quagga.stop(); } catch (e) {}
-  // Remove any previous onDetected handler if supported
-  try { if (Quagga && typeof Quagga.offDetected === 'function') Quagga.offDetected(); } catch (e) {}
-
-  // Warn when not served over HTTPS (camera access may be blocked by browser)
-  if (location.protocol === 'http:' && location.hostname !== 'localhost') {
-    showToast('Camera may be blocked: serve the site over HTTPS or use localhost', 'warning');
-  }
-
-  // Try multiple configs in sequence to avoid OverconstrainedError
-  const tryConfigs = [
-    // Preferred: environment camera, reasonable ideal size
-    {
-      inputStream: { name: "Live", type: "LiveStream", target: scannerEl, constraints: { facingMode: "environment", width: { ideal: 640 }, height: { ideal: 480 } } },
-      locator: { patchSize: "medium", halfSample: true },
-      numOfWorkers: (navigator.hardwareConcurrency || 2),
-      decoder: { readers: ["code_128_reader", "ean_reader", "ean_8_reader", "code_39_reader", "upc_reader", "i2of5_reader"] },
-      locate: true
-    },
-    // Relax size constraints
-    {
-      inputStream: { name: "Live", type: "LiveStream", target: scannerEl, constraints: { facingMode: "environment" } },
-      locator: { patchSize: "large", halfSample: true },
-      numOfWorkers: 1,
-      decoder: { readers: ["code_128_reader", "ean_reader", "code_39_reader"] },
-      locate: true
-    },
-    // Final fallback: no facingMode (lets browser choose), minimal work
-    {
-      inputStream: { name: "Live", type: "LiveStream", target: scannerEl },
-      locator: { patchSize: "large", halfSample: true },
-      numOfWorkers: 1,
-      decoder: { readers: ["code_128_reader"] },
-      locate: true
+    if (!scannerEl || !startBtn || !stopBtn) {
+        console.error('Scanner elements not found');
+        return;
     }
-  ];
 
-  const initQuagga = (configs, idx = 0) => {
-    if (idx >= configs.length) {
-      showToast('Camera error: No compatible camera constraints found', 'error');
-      stopScanner();
-      return;
+    // Check Quagga
+    if (typeof Quagga === 'undefined') {
+        console.error('Quagga is not loaded');
+        showToast('Scanner library not loaded', 'error');
+        return;
     }
-    const cfgAttempt = configs[idx];
-    Quagga.init(cfgAttempt, (err) => {
-      if (err) {
-        console.warn('Quagga init attempt failed', idx, err && err.name);
-        // If OverconstrainedError, try the next, otherwise show error
-        if (err && (err.name === 'OverconstrainedError' || err.name === 'ConstraintNotSatisfiedError' || err.constraint)) {
-          initQuagga(configs, idx + 1);
-          return;
+
+    // Show scanner UI
+    scannerEl.style.display = 'block';
+    startBtn.style.display = 'none';
+    stopBtn.style.display = 'inline-flex';
+
+    // Stop previous scanner if running
+    try {
+        if (scannerRunning) {
+            Quagga.stop();
+            scannerRunning = false;
         }
-        console.error('Quagga init error', err);
-        const msg = err && err.name ? `${err.name}: ${err.message || ''}` : 'Camera error';
-        showToast('Camera error: ' + msg, 'error');
-        stopScanner();
-        return;
-      }
-      try {
-        Quagga.start();
-        scannerRunning = true;
-      } catch (startErr) {
-        console.error('Quagga start failed', startErr);
-        showToast('Unable to start scanner', 'error');
-        stopScanner();
-      }
-    });
-  };
-
-  initQuagga(tryConfigs);
-
-  // Single detection handler — unregister previous to avoid duplicates
-const onDetectedHandler = (result) => {
-  try {
-    const code = result && result.codeResult && result.codeResult.code;
-
-    if (code) {
-      const numericCode = parseInt(code, 10);
-
-      // Accept only codes from 3000 to 3100
-      if (
-        !/^\d+$/.test(code) ||
-        numericCode < 30000 ||
-        numericCode > 32000
-      ) {
-        showToast('كود غير صالح', 'error');
-        return;
-      }
-
-      document.getElementById('studentCode').value = code;
-      stopScanner();
-
-      showToast('تم مسح الكود: ' + code, 'success');
+    } catch (e) {
+        console.warn('Could not stop previous scanner:', e);
     }
-  } catch (e) {
-    console.error('onDetected handler error:', e);
-  }
-};
 
-function stopScanner() {
-  if (scannerRunning && typeof Quagga !== 'undefined') {
-    Quagga.stop();
-    scannerRunning = false;
-  }
-  const scannerEl = document.getElementById('scannerArea');
-  if (scannerEl) scannerEl.style.display = 'none';
-  const startBtn = document.getElementById('startScanBtn');
-  const stopBtn = document.getElementById('stopScanBtn');
-  if (startBtn) startBtn.style.display = 'inline-flex';
-  if (stopBtn) stopBtn.style.display = 'none';
+    // Remove old detection handler
+    try {
+        if (typeof Quagga.offDetected === 'function') {
+            Quagga.offDetected();
+        }
+    } catch (e) {
+        console.warn('Could not remove old handler:', e);
+    }
+
+    // Barcode detection handler
+    const onDetectedHandler = (result) => {
+        try {
+            if (!result || !result.codeResult) {
+                return;
+            }
+
+            const code = result.codeResult.code;
+
+            if (!code) {
+                return;
+            }
+
+            console.log('Barcode detected:', code);
+
+            // Accept numbers only
+            if (!/^\d+$/.test(code)) {
+                showToast('كود غير صالح', 'error');
+                return;
+            }
+
+            const numericCode = parseInt(code, 10);
+
+            // Accept only 3000 - 3100
+            if (numericCode < 3000 || numericCode > 3100) {
+                showToast('كود غير صالح - يجب أن يكون من 3000 إلى 3100', 'error');
+                return;
+            }
+
+            // Put code into input
+            const codeInput = document.getElementById('studentCode');
+
+            if (codeInput) {
+                codeInput.value = code;
+            }
+
+            // Stop scanner
+            stopScanner();
+
+            showToast('تم مسح الكود: ' + code, 'success');
+
+            console.log('Valid barcode:', code);
+
+        } catch (error) {
+            console.error('Barcode detection error:', error);
+        }
+    };
+
+    // IMPORTANT:
+    // Register the detection handler
+    Quagga.onDetected(onDetectedHandler);
+
+    // Scanner configurations
+    const config = {
+        inputStream: {
+            name: "Live",
+            type: "LiveStream",
+            target: scannerEl,
+            constraints: {
+                facingMode: "environment",
+                width: {
+                    ideal: 640
+                },
+                height: {
+                    ideal: 480
+                }
+            }
+        },
+
+        locator: {
+            patchSize: "medium",
+            halfSample: true
+        },
+
+        numOfWorkers: Math.min(
+            navigator.hardwareConcurrency || 2,
+            4
+        ),
+
+        decoder: {
+            readers: [
+                "code_128_reader",
+                "ean_reader",
+                "ean_8_reader",
+                "code_39_reader",
+                "upc_reader",
+                "i2of5_reader"
+            ]
+        },
+
+        locate: true
+    };
+
+    // Initialize Quagga
+    Quagga.init(config, function(err) {
+
+        if (err) {
+            console.error('Quagga initialization error:', err);
+
+            showToast(
+                'تعذر تشغيل الكاميرا: ' +
+                (err.message || 'Camera error'),
+                'error'
+            );
+
+            stopScanner();
+            return;
+        }
+
+        console.log('Quagga initialized successfully');
+
+        try {
+            Quagga.start();
+            scannerRunning = true;
+
+            console.log('Scanner started');
+
+        } catch (error) {
+            console.error('Quagga start error:', error);
+
+            showToast(
+                'تعذر تشغيل الماسح',
+                'error'
+            );
+
+            stopScanner();
+        }
+    });
 }
 
+
+function stopScanner() {
+
+    if (typeof Quagga !== 'undefined') {
+
+        try {
+            if (scannerRunning) {
+                Quagga.stop();
+            }
+
+            if (typeof Quagga.offDetected === 'function') {
+                Quagga.offDetected();
+            }
+
+        } catch (error) {
+            console.warn('Error stopping scanner:', error);
+        }
+    }
+
+    scannerRunning = false;
+
+    const scannerEl = document.getElementById('scannerArea');
+    const startBtn = document.getElementById('startScanBtn');
+    const stopBtn = document.getElementById('stopScanBtn');
+
+    if (scannerEl) {
+        scannerEl.style.display = 'none';
+        scannerEl.innerHTML = '';
+    }
+
+    if (startBtn) {
+        startBtn.style.display = 'inline-flex';
+    }
+
+    if (stopBtn) {
+        stopBtn.style.display = 'none';
+    }
+}
 /* ==================== Name Validation ==================== */
 function isArabicName(name) {
   // Allow Arabic letters, spaces, and common diacritics only
