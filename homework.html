@@ -1,156 +1,311 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+
+<html lang="en" dir="ltr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Homework - Mr. Ahmed Mohie Physics</title>
+```
+<title>Homework - Mr. Ahmed Mohie Physics</title>
 
-    <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    >
+<!-- Font Awesome -->
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+>
 
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Poppins:wght@300;400;500;600;700;900&display=swap"
-        rel="stylesheet"
-    >
+<!-- Google Fonts -->
+<link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Poppins:wght@300;400;500;600;700;900&display=swap"
+    rel="stylesheet"
+>
 
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="css/style.css">
+<!-- Main CSS -->
+<link rel="stylesheet" href="css/style.css">
 
-    <!-- Check Login -->
-    <script>
-        if (!localStorage.getItem('loggedInUser')) {
-            window.location.replace('register.html');
-        }
-    </script>
+<!-- Check Login -->
+<script>
+    if (!localStorage.getItem('loggedInUser')) {
+        window.location.replace('register.html');
+    }
+</script>
+```
+
 </head>
-
 
 <body>
 
+```
+<!-- =====================================================
+     LOADER
+     ===================================================== -->
 
-    <!-- =====================================================
-         PAGE HEADER
-         ===================================================== -->
+<div id="loader">
 
-    <header class="page-header">
+    <div class="loader-content">
 
-        <div class="container">
+        <div class="atom-loader">
 
-            <div class="header-content">
+            <div class="electron"></div>
+            <div class="electron"></div>
+            <div class="electron"></div>
 
-                <a
-                    href="index.html"
-                    class="back-btn"
-                >
-                    <i class="fas fa-arrow-right"></i>
-
-                    <span
-                        data-en="Home"
-                        data-ar="الرئيسية"
-                    >
-                        الرئيسية
-                    </span>
-                </a>
-
-
-                <div class="page-title">
-
-                    <i class="fas fa-book-open"></i>
-
-                    <h1
-                        data-en="Homework"
-                        data-ar="الواجبات"
-                    >
-                        الواجبات
-                    </h1>
-
-                </div>
-
-
-                <!-- Language Button -->
-                <button
-                    id="languageToggle"
-                    class="language-btn"
-                    type="button"
-                    onclick="toggleLanguage()"
-                >
-                    <i class="fas fa-language"></i>
-                    <span>English</span>
-                </button>
-
-            </div>
+            <div class="nucleus"></div>
 
         </div>
 
-    </header>
+        <p
+            data-en="Loading..."
+            data-ar="جاري التحميل..."
+        >
+            Loading...
+        </p>
+
+    </div>
+
+</div>
 
 
 
-    <!-- =====================================================
-         MAIN CONTENT
-         ===================================================== -->
+<!-- =====================================================
+     NAVBAR
+     ===================================================== -->
 
-    <main class="container">
+<nav
+    class="navbar scrolled"
+    id="navbar"
+>
+
+    <div class="nav-container">
+
+
+        <!-- Logo -->
+
+        <a
+            href="index.html"
+            class="logo"
+        >
+
+            <i class="fas fa-atom"></i>
+
+            <span
+                data-en="Mr. Ahmed Mohie"
+                data-ar="أ. أحمد محي"
+            >
+                Mr. Ahmed Mohie
+            </span>
+
+        </a>
+
+
+
+        <!-- Grade -->
+
+        <div
+            style="
+                margin-left:12px;
+                font-weight:700;
+                direction:rtl;
+                color:var(--primary);
+            "
+        >
+            الصف الثاني الثانوي
+        </div>
+
+
+
+        <!-- Navigation Links -->
+
+        <div
+            class="nav-links"
+            id="navLinks"
+        >
+
+            <a
+                href="index.html"
+                class="nav-link"
+                data-en="Home"
+                data-ar="الرئيسية"
+            >
+                Home
+            </a>
+
+
+            <a
+                href="index.html#about"
+                class="nav-link"
+                data-en="About"
+                data-ar="من نحن"
+            >
+                About
+            </a>
+
+
+            <a
+                href="index.html#team"
+                class="nav-link"
+                data-en="Team"
+                data-ar="الفريق"
+            >
+                Team
+            </a>
+
+
+            <span
+                class="nav-auth"
+                id="navAuth"
+            ></span>
+
+
+            <a
+                href="homework.html"
+                class="nav-link nav-btn active"
+                data-en="Homework"
+                data-ar="الواجب"
+            >
+                <i class="fas fa-book-open"></i>
+                Homework
+            </a>
+
+
+            <a
+                href="sections.html"
+                class="nav-link nav-btn btn-secondary"
+                data-en="Sections"
+                data-ar="الحصص"
+            >
+                <i class="fas fa-play-circle"></i>
+                Sections
+            </a>
+
+        </div>
+
+
+
+        <!-- Navbar Actions -->
+
+        <div class="nav-actions">
+
+            <button
+                class="lang-toggle"
+                id="langToggle"
+                onclick="toggleLanguage()"
+            >
+
+                <i class="fas fa-globe"></i>
+
+                <span id="langText">
+                    عربي
+                </span>
+
+            </button>
+
+
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                onclick="toggleMenu()"
+            >
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================================
+     PAGE HERO
+     ===================================================== -->
+
+<div class="page-hero">
+
+    <div>
+
+        <h1
+            data-en="Homework Videos"
+            data-ar="فيديوهات الواجب"
+        >
+            Homework Videos
+        </h1>
+
+
+        <p
+            data-en="Watch homework explanation videos after confirming your attendance"
+            data-ar="شاهد فيديوهات شرح الواجب بعد تأكيد حضورك"
+        >
+            Watch homework explanation videos after confirming your attendance
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     MAIN CONTENT
+     ===================================================== -->
+
+<section class="content-section">
+
+    <div class="container">
 
 
         <!-- =================================================
              AUTOMATIC LOADING CARD
              ================================================= -->
 
-        <section
+        <div
+            class="code-check-card"
             id="autoLoadCard"
-            class="content-section"
-            style="display:none;"
+            style="
+                display:none;
+                text-align:center;
+            "
         >
 
-            <div
+            <i
+                class="fas fa-sync fa-spin"
                 style="
-                    text-align:center;
-                    padding:60px 20px;
+                    font-size:2rem;
+                    color:var(--primary);
+                    margin-bottom:15px;
                 "
+                id="autoLoadSpinner"
+            ></i>
+
+
+            <h3
+                id="autoLoadTitle"
+                data-en="Loading Your Homework..."
+                data-ar="جاري تحميل واجباتك..."
             >
-
-                <i
-                    id="autoLoadSpinner"
-                    class="fas fa-spinner fa-spin"
-                    style="
-                        font-size:45px;
-                        color:var(--primary);
-                        margin-bottom:20px;
-                    "
-                ></i>
+                Loading Your Homework...
+            </h3>
 
 
-                <h2
-                    id="autoLoadTitle"
-                    data-en="Loading your homework..."
-                    data-ar="جاري تحميل واجباتك..."
-                >
-                    جاري تحميل واجباتك...
-                </h2>
+            <p
+                id="autoLoadMsg"
+                style="
+                    color:var(--text-muted);
+                    font-size:0.95rem;
+                "
+                data-en="Checking your attendance and loading videos..."
+                data-ar="جاري التحقق من حضورك وتحميل الفيديوهات..."
+            >
+                Checking your attendance and loading videos...
+            </p>
 
-
-                <p
-                    id="autoLoadMsg"
-                    data-en="Checking your attendance..."
-                    data-ar="جاري التحقق من حضورك..."
-                    style="
-                        color:var(--text-muted);
-                        margin-top:10px;
-                    "
-                >
-                    جاري التحقق من حضورك...
-                </p>
-
-            </div>
-
-        </section>
+        </div>
 
 
 
@@ -158,98 +313,76 @@
              MANUAL STUDENT CODE CHECK
              ================================================= -->
 
-        <section
+        <div
+            class="code-check-card"
             id="codeCheckCard"
-            class="content-section"
-            style="display:none;"
         >
 
-            <div
+            <h3
+                data-en="Enter Your Code"
+                data-ar="أدخل الكود الخاص بك"
+            >
+                Enter Your Code
+            </h3>
+
+
+            <p
                 style="
-                    max-width:600px;
-                    margin:50px auto;
-                    text-align:center;
+                    color:var(--text-muted);
+                    font-size:0.95rem;
                 "
+                data-en="Enter your student code to see your available homework based on attendance"
+                data-ar="أدخل كود الطالب لعرض الواجبات المتاحة بناءً على حضورك"
+            >
+                Enter your student code to see your available homework based on attendance
+            </p>
+
+
+
+            <div
+                class="code-input-group"
+                style="margin-top:20px;"
             >
 
-                <div class="card-icon">
-
-                    <i class="fas fa-user-check"></i>
-
-                </div>
-
-
-                <h2
-                    data-en="Check Your Homework"
-                    data-ar="عرض واجباتك"
-                >
-                    عرض واجباتك
-                </h2>
-
-
-                <p
-                    data-en="Enter your student code to check your attendance and available homework."
-                    data-ar="أدخل كود الطالب للتحقق من حضورك والواجبات المتاحة لك."
-                    style="
-                        color:var(--text-muted);
-                        margin:10px 0 25px;
-                    "
-                >
-                    أدخل كود الطالب للتحقق من حضورك
-                    والواجبات المتاحة لك.
-                </p>
-
-
-
-                <div
-                    style="
-                        display:flex;
-                        gap:10px;
-                        max-width:450px;
-                        margin:auto;
-                    "
+                <input
+                    type="text"
+                    class="form-control"
+                    id="hwStudentCode"
+                    placeholder="Enter your code / أدخل الكود"
+                    inputmode="numeric"
+                    autocomplete="off"
                 >
 
-                    <input
-                        type="text"
-                        id="hwStudentCode"
-                        class="form-control"
-                        placeholder="كود الطالب"
-                        inputmode="numeric"
-                        autocomplete="off"
+
+                <button
+                    class="btn btn-primary"
+                    id="hwCheckBtn"
+                    type="button"
+                    onclick="checkHomeworkAccess()"
+                >
+
+                    <i class="fas fa-search"></i>
+
+                    <span
+                        data-en="Show My Homework"
+                        data-ar="عرض واجباتي"
                     >
+                        Show My Homework
+                    </span>
 
-
-                    <button
-                        id="hwCheckBtn"
-                        class="btn btn-primary"
-                        type="button"
-                        onclick="checkHomeworkAccess()"
-                    >
-
-                        <i class="fas fa-search"></i>
-
-                        <span
-                            data-en="Show My Homework"
-                            data-ar="عرض واجباتي"
-                        >
-                            عرض واجباتي
-                        </span>
-
-                    </button>
-
-                </div>
-
-
-                <!-- Alert -->
-                <div
-                    id="hwAlert"
-                    style="margin-top:20px;"
-                ></div>
+                </button>
 
             </div>
 
-        </section>
+
+            <!-- Alert -->
+
+            <div
+                id="hwAlert"
+                style="margin-top:15px;"
+            ></div>
+
+        </div>
 
 
 
@@ -257,56 +390,46 @@
              HOMEWORK LIST
              ================================================= -->
 
-        <section
+        <div
             id="homeworkList"
-            class="content-section"
             style="display:none;"
         >
 
-            <div
-                class="section-heading"
-                style="
-                    margin-bottom:30px;
-                    text-align:center;
-                "
-            >
+            <div class="section-header">
 
-                <h2>
-
-                    <i class="fas fa-book-open"></i>
-
-                    <span
-                        data-en="My Homework"
-                        data-ar="واجباتي"
-                    >
-                        واجباتي
-                    </span>
-
+                <h2
+                    class="section-title"
+                    data-en="Available Homework"
+                    data-ar="الواجبات المتاحة"
+                >
+                    Available Homework
                 </h2>
 
 
-                <p
-                    data-en="Homework available for the lectures you attended"
-                    data-ar="الواجبات المتاحة للمحاضرات التي حضرتها"
-                    style="
-                        color:var(--text-muted);
-                        margin-top:8px;
-                    "
-                >
-                    الواجبات المتاحة للمحاضرات التي حضرتها
-                </p>
+                <div class="section-divider"></div>
 
             </div>
 
 
 
-            <!-- Dynamic homework cards -->
-            <div
-                id="homeworkGrid"
-                class="content-grid"
-            ></div>
+            <!-- Homework Cards -->
 
-        </section>
+            <div
+                class="content-grid"
+                id="homeworkGrid"
+            >
+
+                <!-- Skeleton Loading -->
+
+                <div class="skeleton skeleton-card"></div>
+
+                <div class="skeleton skeleton-card"></div>
+
+                <div class="skeleton skeleton-card"></div>
+
+            </div>
+
+        </div>
 
 
 
@@ -314,237 +437,213 @@
              VIDEO PLAYER
              ================================================= -->
 
-        <section
+        <div
+            class="video-player-section"
             id="videoPlayerSection"
-            class="content-section"
-            style="display:none;"
         >
 
-            <div
-                style="
-                    margin-bottom:20px;
-                    display:flex;
-                    align-items:center;
-                    justify-content:space-between;
-                    gap:15px;
-                    flex-wrap:wrap;
-                "
+            <button
+                class="btn btn-outline"
+                type="button"
+                onclick="closeVideoPlayer()"
+                style="margin-bottom:20px;"
             >
 
-                <button
-                    class="btn btn-outline"
-                    type="button"
-                    onclick="closeVideoPlayer()"
-                >
+                <i class="fas fa-arrow-left"></i>
 
-                    <i class="fas fa-arrow-right"></i>
+                <span
+                    data-en="Back to Homework"
+                    data-ar="العودة للواجبات"
+                >
+                    Back to Homework
+                </span>
+
+            </button>
+
+
+
+            <!-- Video -->
+
+            <div
+                class="video-wrapper"
+                id="videoWrapper"
+            ></div>
+
+
+
+            <!-- Video Information -->
+
+            <div
+                class="video-info"
+                id="videoInfo"
+            >
+
+                <h3 id="videoTitle"></h3>
+
+                <p id="videoDescription"></p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+<footer class="footer">
+
+    <div class="container">
+
+        <div class="footer-content">
+
+
+            <!-- Footer Brand -->
+
+            <div class="footer-brand">
+
+                <h3>
+
+                    <i class="fas fa-atom"></i>
 
                     <span
-                        data-en="Back to Homework"
-                        data-ar="العودة للواجبات"
+                        data-en="Mr. Ahmed Mohie"
+                        data-ar="أ. أحمد محي"
                     >
-                        العودة للواجبات
+                        Mr. Ahmed Mohie
                     </span>
 
-                </button>
+                </h3>
 
 
-                <h2
-                    id="videoTitle"
-                    style="margin:0;"
+                <p
+                    data-en="Physics Teacher - Making Physics Simple & Fun"
+                    data-ar="مدرس فيزياء - نجعل الفيزياء بسيطة وممتعة"
                 >
-                    Homework Video
-                </h2>
+                    Physics Teacher - Making Physics Simple & Fun
+                </p>
 
             </div>
 
 
 
-            <!-- Video -->
-            <div
-                id="videoWrapper"
-                style="
-                    width:100%;
-                    max-width:1100px;
-                    margin:0 auto;
-                "
-            ></div>
+            <!-- Footer Links -->
 
-        </section>
+            <div class="footer-links">
 
+                <a
+                    href="index.html"
+                    data-en="Home"
+                    data-ar="الرئيسية"
+                >
+                    Home
+                </a>
 
-    </main>
 
+                <a
+                    href="register.html"
+                    data-en="Register"
+                    data-ar="التسجيل"
+                >
+                    Register
+                </a>
 
 
-    <!-- =====================================================
-         FOOTER
-         ===================================================== -->
+                <a
+                    href="homework.html"
+                    data-en="Homework"
+                    data-ar="الواجب"
+                >
+                    Homework
+                </a>
 
-    <footer
-        style="
-            text-align:center;
-            padding:40px 20px;
-            color:var(--text-muted);
-        "
-    >
 
-        <p
-            data-en="Mr. Ahmed Mohie Physics"
-            data-ar="مستر أحمد محيي للفيزياء"
-        >
-            مستر أحمد محيي للفيزياء
-        </p>
+                <a
+                    href="sections.html"
+                    data-en="Sections"
+                    data-ar="الحصص"
+                >
+                    Sections
+                </a>
 
-    </footer>
+            </div>
 
 
 
-    <!-- =====================================================
-         MAIN JS
-         ===================================================== -->
+            <!-- Social Links -->
 
-    <script src="js/main.js"></script>
+            <div class="footer-social">
 
+                <a
+                    href="https://api.whatsapp.com/send/?phone=%2B201288449598"
+                    class="social-link whatsapp"
+                    target="_blank"
+                >
+                    <i class="fab fa-whatsapp"></i>
+                </a>
 
-    <!-- =====================================================
-         HOMEWORK JS
-         ===================================================== -->
 
-    <script src="js/homework.js"></script>
+                <a
+                    href="https://www.facebook.com/share/aLnUsKV1Sk315EAJ/?mibextid=qi2Omg"
+                    class="social-link facebook"
+                    target="_blank"
+                >
+                    <i class="fab fa-facebook-f"></i>
+                </a>
 
 
-    <!-- =====================================================
-         FALLBACK LANGUAGE FUNCTIONS
-         ===================================================== -->
+                <a
+                    href="https://www.instagram.com/ahmedmohie97"
+                    class="social-link instagram"
+                    target="_blank"
+                >
+                    <i class="fab fa-instagram"></i>
+                </a>
 
-    <script>
+            </div>
 
-        /*
-         * The main.js file should normally contain
-         * updateLanguage() and toggleLanguage().
-         *
-         * These functions are only used if they are
-         * not already defined in main.js.
-         */
+        </div>
 
 
-        if (typeof toggleLanguage !== 'function') {
 
-            window.toggleLanguage = function () {
+        <!-- Footer Bottom -->
 
-                const current =
-                    localStorage.getItem('language') || 'ar';
+        <div class="footer-bottom">
 
-                const next =
-                    current === 'ar'
-                        ? 'en'
-                        : 'ar';
+            <p>
 
+                &copy; 2026 Mr. Ahmed Mohie.
 
-                localStorage.setItem(
-                    'language',
-                    next
-                );
+                <span
+                    data-en="All rights reserved."
+                    data-ar="جميع الحقوق محفوظة."
+                >
+                    All rights reserved.
+                </span>
 
+            </p>
 
-                updateLanguage();
-            };
+        </div>
 
-        }
+    </div>
 
+</footer>
 
-        if (typeof updateLanguage !== 'function') {
 
-            window.updateLanguage = function () {
 
-                const lang =
-                    localStorage.getItem('language') || 'ar';
+<!-- =====================================================
+     JAVASCRIPT
+     ===================================================== -->
 
+<script src="js/main.js"></script>
 
-                document.documentElement.lang =
-                    lang;
-
-                document.documentElement.dir =
-                    lang === 'ar'
-                        ? 'rtl'
-                        : 'ltr';
-
-
-                document
-                    .querySelectorAll('[data-en]')
-                    .forEach(element => {
-
-                        const text =
-                            element.getAttribute(
-                                `data-${lang}`
-                            );
-
-
-                        if (
-                            text !== null &&
-                            element.children.length === 0
-                        ) {
-
-                            element.textContent =
-                                text;
-                        }
-
-                    });
-
-
-                const languageButton =
-                    document.getElementById(
-                        'languageToggle'
-                    );
-
-
-                if (languageButton) {
-
-                    const span =
-                        languageButton.querySelector(
-                            'span'
-                        );
-
-
-                    if (span) {
-
-                        span.textContent =
-                            lang === 'ar'
-                                ? 'English'
-                                : 'العربية';
-
-                    }
-
-                }
-
-            };
-
-        }
-
-
-        /*
-         * Apply language after page loads.
-         */
-
-        document.addEventListener(
-            'DOMContentLoaded',
-            () => {
-
-                if (
-                    typeof updateLanguage ===
-                    'function'
-                ) {
-
-                    updateLanguage();
-
-                }
-
-            }
-        );
-
-    </script>
-
+<script src="js/homework.js"></script>
+```
 
 </body>
 
