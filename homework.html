@@ -1,26 +1,551 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Homework - Mr. Ahmed Mohie Physics</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <script>if(!localStorage.getItem('loggedInUser'))window.location.replace('register.html');</script>
-</head>
-<body>
-  <!-- HOMEWORK PAGE DISABLED -->
-  <div style="padding:80px 20px; text-align:center;">
-    <h2 style="font-size:1.6rem; margin-bottom:8px;">Homework page is temporarily disabled</h2>
-    <p style="color:var(--text-muted); margin-bottom:18px;">This page has been commented out across the site. Please return to the <a href="index.html">home page</a>.</p>
-  </div>
+<html lang="ar" dir="rtl">
 
-  <!-- Original homework content commented out to disable the page -->
-  <!--
-  (original content removed from the live page; see git history if you need to restore)
-  -->
-  <script src="js/main.js"></script>
-  <!-- <script src="js/homework.js"></script> -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Homework - Mr. Ahmed Mohie Physics</title>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Poppins:wght@300;400;500;600;700;900&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Check Login -->
+    <script>
+        if (!localStorage.getItem('loggedInUser')) {
+            window.location.replace('register.html');
+        }
+    </script>
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         PAGE HEADER
+         ===================================================== -->
+
+    <header class="page-header">
+
+        <div class="container">
+
+            <div class="header-content">
+
+                <a
+                    href="index.html"
+                    class="back-btn"
+                >
+                    <i class="fas fa-arrow-right"></i>
+
+                    <span
+                        data-en="Home"
+                        data-ar="الرئيسية"
+                    >
+                        الرئيسية
+                    </span>
+                </a>
+
+
+                <div class="page-title">
+
+                    <i class="fas fa-book-open"></i>
+
+                    <h1
+                        data-en="Homework"
+                        data-ar="الواجبات"
+                    >
+                        الواجبات
+                    </h1>
+
+                </div>
+
+
+                <!-- Language Button -->
+                <button
+                    id="languageToggle"
+                    class="language-btn"
+                    type="button"
+                    onclick="toggleLanguage()"
+                >
+                    <i class="fas fa-language"></i>
+                    <span>English</span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="container">
+
+
+        <!-- =================================================
+             AUTOMATIC LOADING CARD
+             ================================================= -->
+
+        <section
+            id="autoLoadCard"
+            class="content-section"
+            style="display:none;"
+        >
+
+            <div
+                style="
+                    text-align:center;
+                    padding:60px 20px;
+                "
+            >
+
+                <i
+                    id="autoLoadSpinner"
+                    class="fas fa-spinner fa-spin"
+                    style="
+                        font-size:45px;
+                        color:var(--primary);
+                        margin-bottom:20px;
+                    "
+                ></i>
+
+
+                <h2
+                    id="autoLoadTitle"
+                    data-en="Loading your homework..."
+                    data-ar="جاري تحميل واجباتك..."
+                >
+                    جاري تحميل واجباتك...
+                </h2>
+
+
+                <p
+                    id="autoLoadMsg"
+                    data-en="Checking your attendance..."
+                    data-ar="جاري التحقق من حضورك..."
+                    style="
+                        color:var(--text-muted);
+                        margin-top:10px;
+                    "
+                >
+                    جاري التحقق من حضورك...
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             MANUAL STUDENT CODE CHECK
+             ================================================= -->
+
+        <section
+            id="codeCheckCard"
+            class="content-section"
+            style="display:none;"
+        >
+
+            <div
+                style="
+                    max-width:600px;
+                    margin:50px auto;
+                    text-align:center;
+                "
+            >
+
+                <div class="card-icon">
+
+                    <i class="fas fa-user-check"></i>
+
+                </div>
+
+
+                <h2
+                    data-en="Check Your Homework"
+                    data-ar="عرض واجباتك"
+                >
+                    عرض واجباتك
+                </h2>
+
+
+                <p
+                    data-en="Enter your student code to check your attendance and available homework."
+                    data-ar="أدخل كود الطالب للتحقق من حضورك والواجبات المتاحة لك."
+                    style="
+                        color:var(--text-muted);
+                        margin:10px 0 25px;
+                    "
+                >
+                    أدخل كود الطالب للتحقق من حضورك
+                    والواجبات المتاحة لك.
+                </p>
+
+
+
+                <div
+                    style="
+                        display:flex;
+                        gap:10px;
+                        max-width:450px;
+                        margin:auto;
+                    "
+                >
+
+                    <input
+                        type="text"
+                        id="hwStudentCode"
+                        class="form-control"
+                        placeholder="كود الطالب"
+                        inputmode="numeric"
+                        autocomplete="off"
+                    >
+
+
+                    <button
+                        id="hwCheckBtn"
+                        class="btn btn-primary"
+                        type="button"
+                        onclick="checkHomeworkAccess()"
+                    >
+
+                        <i class="fas fa-search"></i>
+
+                        <span
+                            data-en="Show My Homework"
+                            data-ar="عرض واجباتي"
+                        >
+                            عرض واجباتي
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+                <!-- Alert -->
+                <div
+                    id="hwAlert"
+                    style="margin-top:20px;"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             HOMEWORK LIST
+             ================================================= -->
+
+        <section
+            id="homeworkList"
+            class="content-section"
+            style="display:none;"
+        >
+
+            <div
+                class="section-heading"
+                style="
+                    margin-bottom:30px;
+                    text-align:center;
+                "
+            >
+
+                <h2>
+
+                    <i class="fas fa-book-open"></i>
+
+                    <span
+                        data-en="My Homework"
+                        data-ar="واجباتي"
+                    >
+                        واجباتي
+                    </span>
+
+                </h2>
+
+
+                <p
+                    data-en="Homework available for the lectures you attended"
+                    data-ar="الواجبات المتاحة للمحاضرات التي حضرتها"
+                    style="
+                        color:var(--text-muted);
+                        margin-top:8px;
+                    "
+                >
+                    الواجبات المتاحة للمحاضرات التي حضرتها
+                </p>
+
+            </div>
+
+
+
+            <!-- Dynamic homework cards -->
+            <div
+                id="homeworkGrid"
+                class="content-grid"
+            ></div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             VIDEO PLAYER
+             ================================================= -->
+
+        <section
+            id="videoPlayerSection"
+            class="content-section"
+            style="display:none;"
+        >
+
+            <div
+                style="
+                    margin-bottom:20px;
+                    display:flex;
+                    align-items:center;
+                    justify-content:space-between;
+                    gap:15px;
+                    flex-wrap:wrap;
+                "
+            >
+
+                <button
+                    class="btn btn-outline"
+                    type="button"
+                    onclick="closeVideoPlayer()"
+                >
+
+                    <i class="fas fa-arrow-right"></i>
+
+                    <span
+                        data-en="Back to Homework"
+                        data-ar="العودة للواجبات"
+                    >
+                        العودة للواجبات
+                    </span>
+
+                </button>
+
+
+                <h2
+                    id="videoTitle"
+                    style="margin:0;"
+                >
+                    Homework Video
+                </h2>
+
+            </div>
+
+
+
+            <!-- Video -->
+            <div
+                id="videoWrapper"
+                style="
+                    width:100%;
+                    max-width:1100px;
+                    margin:0 auto;
+                "
+            ></div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer
+        style="
+            text-align:center;
+            padding:40px 20px;
+            color:var(--text-muted);
+        "
+    >
+
+        <p
+            data-en="Mr. Ahmed Mohie Physics"
+            data-ar="مستر أحمد محيي للفيزياء"
+        >
+            مستر أحمد محيي للفيزياء
+        </p>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         MAIN JS
+         ===================================================== -->
+
+    <script src="js/main.js"></script>
+
+
+    <!-- =====================================================
+         HOMEWORK JS
+         ===================================================== -->
+
+    <script src="js/homework.js"></script>
+
+
+    <!-- =====================================================
+         FALLBACK LANGUAGE FUNCTIONS
+         ===================================================== -->
+
+    <script>
+
+        /*
+         * The main.js file should normally contain
+         * updateLanguage() and toggleLanguage().
+         *
+         * These functions are only used if they are
+         * not already defined in main.js.
+         */
+
+
+        if (typeof toggleLanguage !== 'function') {
+
+            window.toggleLanguage = function () {
+
+                const current =
+                    localStorage.getItem('language') || 'ar';
+
+                const next =
+                    current === 'ar'
+                        ? 'en'
+                        : 'ar';
+
+
+                localStorage.setItem(
+                    'language',
+                    next
+                );
+
+
+                updateLanguage();
+            };
+
+        }
+
+
+        if (typeof updateLanguage !== 'function') {
+
+            window.updateLanguage = function () {
+
+                const lang =
+                    localStorage.getItem('language') || 'ar';
+
+
+                document.documentElement.lang =
+                    lang;
+
+                document.documentElement.dir =
+                    lang === 'ar'
+                        ? 'rtl'
+                        : 'ltr';
+
+
+                document
+                    .querySelectorAll('[data-en]')
+                    .forEach(element => {
+
+                        const text =
+                            element.getAttribute(
+                                `data-${lang}`
+                            );
+
+
+                        if (
+                            text !== null &&
+                            element.children.length === 0
+                        ) {
+
+                            element.textContent =
+                                text;
+                        }
+
+                    });
+
+
+                const languageButton =
+                    document.getElementById(
+                        'languageToggle'
+                    );
+
+
+                if (languageButton) {
+
+                    const span =
+                        languageButton.querySelector(
+                            'span'
+                        );
+
+
+                    if (span) {
+
+                        span.textContent =
+                            lang === 'ar'
+                                ? 'English'
+                                : 'العربية';
+
+                    }
+
+                }
+
+            };
+
+        }
+
+
+        /*
+         * Apply language after page loads.
+         */
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            () => {
+
+                if (
+                    typeof updateLanguage ===
+                    'function'
+                ) {
+
+                    updateLanguage();
+
+                }
+
+            }
+        );
+
+    </script>
+
+
 </body>
+
 </html>
