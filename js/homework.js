@@ -30,6 +30,34 @@ let allVideos = [];
 
 let videoLinksCache = {};
 
+const VIDEO_LIST_CACHE_KEY = 'homeworkVideoListCache';
+const VIDEO_LIST_CACHE_TTL = 300000;
+
+async function fetchJsonWithRetry(url) {
+  let lastError;
+
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const response = await fetch(url, {
+        credentials: 'omit',
+        redirect: 'follow'
+      });
+
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      lastError = error;
+      if (attempt === 0) {
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
+    }
+  }
+
+  throw lastError;
+}
 
 // =========================================================
 // PAGE LOAD
@@ -285,20 +313,11 @@ async function loadHomeworkData(
   code
 ) {
 
-  // -------------------------------------------------------
-  // 1. Get attendance
-  // -------------------------------------------------------
-
-  await fetchAttendance(
-    code
-  );
-
-
-  // -------------------------------------------------------
-  // 2. Get main homework list
-  // -------------------------------------------------------
-
-  await fetchVideoList();
+  // Attendance and the public homework list are independent requests.
+  await Promise.all([
+    fetchAttendance(code),
+    fetchVideoList()
+  ]);
 
 
   // -------------------------------------------------------
@@ -517,26 +536,7 @@ async function fetchAttendance(
     `&code=${encodeURIComponent(code)}`;
 
 
-  const resp =
-    await fetch(
-      url,
-      {
-        credentials: 'omit',
-        redirect: 'follow'
-      }
-    );
-
-
-  if (!resp.ok) {
-
-    throw new Error(
-      'Attendance request failed'
-    );
-  }
-
-
-  const data =
-    await resp.json();
+    const data = await fetchJsonWithRetry(url);
 
 
   if (
@@ -583,26 +583,26 @@ async function fetchAttendance(
 
 async function fetchVideoList() {
 
-  const resp =
-    await fetch(
-      VIDEO_LIST_API,
-      {
-        credentials: 'omit',
-        redirect: 'follow'
+    try {
+    const cached = sessionStorage.getItem(VIDEO_LIST_CACHE_KEY);
+    if (cached) {
+      const parsed = JSON.parse(cached);
+      if (
+        parsed.timestamp &&
+        Date.now() - parsed.timestamp < VIDEO_LIST_CACHE_TTL &&
+        Array.isArray(parsed.data)
+      ) {
+        allVideos = parsed.data;
+        return parsed.data;
       }
-    );
-
-
-  if (!resp.ok) {
-
-    throw new Error(
-      'Video list request failed'
-    );
+    }
+  } catch (error) {
+    sessionStorage.removeItem(VIDEO_LIST_CACHE_KEY);
   }
 
 
-  const data =
-    await resp.json();
+    const data = await fetchJsonWithRetry(VIDEO_LIST_API);
+
 
 
   if (
@@ -617,7 +617,17 @@ async function fetchVideoList() {
 
   allVideos =
     data;
-
+ try {
+    sessionStorage.setItem(
+      VIDEO_LIST_CACHE_KEY,
+      JSON.stringify({
+        timestamp: Date.now(),
+        data
+      })
+    );
+  } catch (error) {
+    // Storage can be unavailable in private browsing; the live response is valid.
+  }
 
   return data;
 }
